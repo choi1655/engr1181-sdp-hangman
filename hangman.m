@@ -48,11 +48,15 @@ blanks = initializeBlanks(wordLen);
 correct = 0;
 failures = 0;
 displayMan(failures);
-fprintf("Word is %s\n", word);
+
+% for debugging
+% fprintf("Word is %s\n", word);
 
 % Start the game
 
 printBlanks(blanks);
+guessed = ones(1, wordLen);
+
 while failures ~= 7 && correct < wordLen
     letter = input("Type a letter> ", 's');
     while length(letter) ~= 1
@@ -64,21 +68,35 @@ while failures ~= 7 && correct < wordLen
     if exists == 0
         failures = failures + 1;
         displayMan(failures);
-        fprintf("Does not exist\n");
+        %fprintf("Does not exist\n");
     else
-        fprintf("Exists\n");
-        for i = 1:length(blanks)
-            if word(i) == response
-                blanks(i) = response;
+        duplicate = false;
+        for i = 1:length(word)
+            if word(i) == letter
+                %fprintf("Exists\n");
+                % check if duplicate
+                if guessed(i) == 0
+                    %fprintf("But duplicate\n");
+                    duplicate = true;
+                    break;
+                end
+                blanks(i) = letter;
+                guessed(i) = 0;
             end
         end
-        correct = correct + 1;
+        if ~duplicate
+            correct = correct + 1;
+        else
+            failures = failures + 1;
+            displayMan(failures);
+        end
     end
     printBlanks(blanks);
 end
 
 if failures == 7
     fprintf("You lose!\n");
+    fprintf("The word was %s\n", word);
 else
     fprintf("You win!\n");
 end
