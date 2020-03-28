@@ -26,14 +26,14 @@ fprintf("The game will use %s.\n", inputfile);
 % read the input file
 wordlist = {};
 fid = fopen(inputfile, "r");
-counter = 1;
+correct = 1;
 while 1
     word = fgetl(fid);
     if ~ischar(word)
         break
     end
     wordlist{end + 1} = word;
-    counter = counter + 1;
+    correct = correct + 1;
 end
 
 % choose random index in wordlist array
@@ -42,11 +42,44 @@ rIndex = randi([1 length(wordlist)]);
 word = wordlist{rIndex};
 % Length of the selected word
 wordLen = length(word);
+% initialize blanks
+blanks = initializeBlanks(wordLen);
 
-counter = 0;
+correct = 0;
 failures = 0;
 displayMan(failures);
-while failures ~= 7 && counter < wordLen
+fprintf("Word is %s\n", word);
+
+% Start the game
+
+printBlanks(blanks);
+while failures ~= 7 && correct < wordLen
+    letter = input("Type a letter> ", 's');
+    while length(letter) ~= 1
+        fprintf("Invalid input!\n");
+        letter = input("Type a letter> ", 's');
+    end
     
-    counter = counter + 1;
+    exists = contains(word, letter, "IgnoreCase", true);
+    if exists == 0
+        failures = failures + 1;
+        displayMan(failures);
+        fprintf("Does not exist\n");
+    else
+        fprintf("Exists\n");
+        for i = 1:length(blanks)
+            if word(i) == response
+                blanks(i) = response;
+            end
+        end
+        correct = correct + 1;
+    end
+    printBlanks(blanks);
 end
+
+if failures == 7
+    fprintf("You lose!\n");
+else
+    fprintf("You win!\n");
+end
+fprintf("Program terminated\n");
