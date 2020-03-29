@@ -3,6 +3,8 @@ clear
 
 fprintf("\n************************************************\n")
 fprintf('* Name:  John Choi   Date:  03/28/20           *\n')
+fprintf('*        Corey Miles                           *\n')
+fprintf('*        Raajih Roland                         *\n')
 fprintf('* Seat/Table:  C    File: hangman.m            *\n')
 fprintf('* Instructor:  M. Pulcherio 04:10PM            *\n')
 fprintf('************************************************\n')
