@@ -14,7 +14,7 @@ while response ~= 1 && response ~= 2
     fprintf("Invalid response!\n");
     response = input("Enter 1 to use list of animals, 2 to use list of foods: ");
 end
-inputfile = '';
+inputfile = "";
 if response == 1
     inputfile = "animals.txt";
 else
@@ -45,7 +45,6 @@ wordLen = length(word);
 % initialize blanks
 blanks = initializeBlanks(wordLen);
 
-correct = 0;
 failures = 0;
 displayMan(failures);
 
@@ -57,7 +56,7 @@ displayMan(failures);
 printBlanks(blanks);
 guessed = ones(1, wordLen);
 
-while failures ~= 7 && correct < wordLen
+while failures ~= 7 && countBlanks(blanks) ~= 0
     letter = input("Type a letter> ", 's');
     while length(letter) ~= 1
         fprintf("Invalid input!\n");
@@ -84,11 +83,9 @@ while failures ~= 7 && correct < wordLen
                 guessed(i) = 0;
             end
         end
-        if ~duplicate
-            correct = correct + 1;
-        else
+        if duplicate
             failures = failures + 1;
-            displayMan(failures);
+            displayMan(failures); 
         end
     end
     printBlanks(blanks);
