@@ -2,6 +2,7 @@ function displayMan(num)
 %DISPLAYMAN This component is responsible for displaying the stick figure
 % based on the parameter value passed in.
 %   num: number of failures
+%   Author: Raajih Roland
 
 switch num
     case 0
