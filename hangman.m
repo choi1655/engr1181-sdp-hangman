@@ -12,6 +12,10 @@ fprintf('************************************************\n')
 % Ask the user which file to use
 response = input("Enter 1 to use list of animals, 2 to use list of foods: ");
 % If response is not 1 or 2, ask the user again
+if isempty(response)
+    fprintf("No input. Program terminated.\n");
+    return
+end
 while response ~= 1 && response ~= 2
     fprintf("Invalid response!\n");
     response = input("Enter 1 to use list of animals, 2 to use list of foods: ");
@@ -58,7 +62,8 @@ displayMan(failures);
 printBlanks(blanks);
 guessed = ones(1, wordLen);
 
-while failures ~= 7 && countBlanks(blanks) ~= 0
+numBlanks = length(blanks);
+while failures ~= 7 && numBlanks ~= 0
     letter = input("Type a letter> ", 's');
     while length(letter) ~= 1
         fprintf("Invalid input!\n");
@@ -81,6 +86,7 @@ while failures ~= 7 && countBlanks(blanks) ~= 0
                     duplicate = true;
                     break;
                 end
+                numBlanks = numBlanks - 1;
                 blanks(i) = letter;
                 guessed(i) = 0;
             end
