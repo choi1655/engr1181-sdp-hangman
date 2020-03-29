@@ -4,7 +4,10 @@ function printBlanks(blanks)
 %   Author: Corey Miles
 
 fprintf("\n");
+% take a look at each element in blanks array.
 for i = 1:length(blanks)
+    % if index i of blanks array is -1, print underscore. Otherwise, print
+    % the letter.
     if blanks(i) == -1
         fprintf("%c ", '_');
     else

@@ -4,6 +4,8 @@ function result = initializeBlanks(len)
 %       array.
 %   Author: Corey Miles
 
+% initialize result for storing blanks.
+% The value -1 means blank or underscore.
 result = size(len);
 for i = 1:len
     result(i) = -1;
