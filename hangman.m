@@ -2,7 +2,7 @@ clc
 clear
 
 fprintf("\n************************************************\n")
-fprintf('* Name:  John Choi   Date:  03/28/20           *\n')
+fprintf('* Name:  John Choi   Date:  04/20/20           *\n')
 fprintf('*        Corey Miles                           *\n')
 fprintf('*        Raajih Roland                         *\n')
 fprintf('* Seat/Table:  C    File: hangman.m            *\n')
@@ -10,27 +10,41 @@ fprintf('* Instructor:  M. Pulcherio 04:10PM            *\n')
 fprintf('************************************************\n')
 
 % Ask the user which file to use
-response = input("Enter 1 to use list of animals, 2 to use list of foods: ");
+response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file: ");
 % If user does not input anything, program terminates
 if isempty(response)
     fprintf("No input. Program terminated.\n");
     return
 end
 % If response is not 1 or 2, ask the user again
-while response ~= 1 && response ~= 2
+while response ~= 1 && response ~= 2 && response ~= 3
     fprintf("Invalid response!\n");
-    response = input("Enter 1 to use list of animals, 2 to use list of foods: ");
+    response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file: ");
 end
 % Variable to hold the file name
 inputfile = "";
 if response == 1
     inputfile = "animals.txt";
-else
+elseif response == 2
     inputfile = "foods.txt";
+else
+    % get the input file name from the user
+    inputfile = input("Enter the name of the input file> ", 's');
+    % if the user hit enter or the input file does not exist, ask again
+    while isempty(inputfile) || exist(inputfile, 'file') ~= 2
+        inputfile = input("Enter the name of the input file> ", 's');
+    end
+    
 end
 
 % Confirmation message
 fprintf("The game will use %s.\n", inputfile);
+% Display warning message if using custom input file
+if response == 3
+    fprintf("******************************************************\n\n");
+    fprintf("Using custom input file may result in unexpected errors if not formatted correctly!\n\n");
+    fprintf("******************************************************\n");
+end
 
 % read the input file line by line
 wordlist = {};
