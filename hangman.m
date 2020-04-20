@@ -115,6 +115,7 @@ while failures ~= 7 && numBlanks ~= 0
         if ~alreadyGuessed
             triedLetters = [triedLetters letter];
         end
+    else
         % if yes, check to see if the user already guessed the letter
         % already and replace the blanks/underscores to letter to print
         duplicate = false;
