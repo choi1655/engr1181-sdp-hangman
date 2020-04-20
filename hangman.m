@@ -72,7 +72,7 @@ blanks = initializeBlanks(wordLen);
 failures = 0;
 
 % for debugging
-% fprintf("Word is %s\n", word);
+%fprintf("Word is %s\n", word);
 
 % Start the game
 
@@ -84,6 +84,8 @@ printBlanks(blanks);
 guessed = ones(1, wordLen);
 % number of leftover blanks/guesses for the user to guess
 numBlanks = length(blanks);
+% list that stores all guessed letters
+triedLetters = [];
 % loop until number of failures is 7 or number of blanks is 0
 while failures ~= 7 && numBlanks ~= 0
     % ask the user for guess and store it
@@ -101,7 +103,18 @@ while failures ~= 7 && numBlanks ~= 0
         % increase the number of failures and display hangman
         failures = failures + 1;
         displayMan(failures);
-    else
+        % add the guessed letter to the list if it does not already exist
+        % in the tried letters list
+        alreadyGuessed = false;
+        for i = 1:length(triedLetters)
+            if letter == triedLetters(i)
+                alreadyGuessed = true;
+                break
+            end
+        end
+        if ~alreadyGuessed
+            triedLetters = [triedLetters letter];
+        end
         % if yes, check to see if the user already guessed the letter
         % already and replace the blanks/underscores to letter to print
         duplicate = false;
@@ -132,6 +145,8 @@ while failures ~= 7 && numBlanks ~= 0
     end
     % print the blanks or letters
     printBlanks(blanks);
+    % print the tried letters
+    printTriedLetters(triedLetters);
 end
 
 % If number of failures was 7, the user lost the game.
