@@ -10,7 +10,7 @@ fprintf('* Instructor:  M. Pulcherio 04:10PM            *\n')
 fprintf('************************************************\n')
 
 % Ask the user which file to use
-response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file: ");
+response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file, or blank to quit: ");
 % If user does not input anything, program terminates
 if isempty(response)
     fprintf("No input. Program terminated.\n");
@@ -19,7 +19,11 @@ end
 % If response is not 1 or 2, ask the user again
 while response ~= 1 && response ~= 2 && response ~= 3
     fprintf("Invalid response!\n");
-    response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file: ");
+    response = input("Enter 1 to use list of animals, 2 to use list of foods, 3 to specify input file, or blank to quit: ");
+    if isempty(response)
+        fprintf("No input. Program terminated.\n");
+        return
+    end
 end
 % Variable to hold the file name
 inputfile = "";
